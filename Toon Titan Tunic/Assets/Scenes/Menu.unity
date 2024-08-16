@@ -1102,6 +1102,10 @@ PrefabInstance:
       value: Toon titan tunic
       objectReference: {fileID: 0}
     - target: {fileID: 7451615721186052535, guid: cff43e5b73193714088223e4b51b0950, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451615721186052535, guid: cff43e5b73193714088223e4b51b0950, type: 3}
       propertyPath: m_fontColor.b
       value: 0
       objectReference: {fileID: 0}

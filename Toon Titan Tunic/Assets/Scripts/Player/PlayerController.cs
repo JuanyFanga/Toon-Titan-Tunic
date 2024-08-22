@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        var h = Input.GetAxisRaw("Horizontal");
-        var v = Input.GetAxisRaw("Vertical");
+        var h = Input.GetAxis("Horizontal");
+        var v = Input.GetAxis("Vertical");
 
         Vector3 dir = new Vector3(h, 0, v);
 

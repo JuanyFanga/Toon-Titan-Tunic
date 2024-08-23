@@ -9,11 +9,18 @@ public class PlayerController : MonoBehaviour
     IPlayer _player;
 
     private PhotonView _pv;
+    private Camera _camera;
 
     private void Awake()
     {
         _player = GetComponent<IPlayer>();
         _pv = GetComponent<PhotonView>();
+        _camera = GetComponentInChildren<Camera>();
+    }
+
+    private void Start()
+    {
+        _camera.gameObject.SetActive(_pv.IsMine);
     }
 
     void FixedUpdate()

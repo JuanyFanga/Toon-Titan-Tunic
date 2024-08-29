@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     IPlayer _player;
+    [SerializeField] private int count = 0;
 
     private PhotonView _pv;
     private Camera _camera;

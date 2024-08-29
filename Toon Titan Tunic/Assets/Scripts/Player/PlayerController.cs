@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         _camera.gameObject.SetActive(_pv.IsMine);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (_pv.IsMine)
         {

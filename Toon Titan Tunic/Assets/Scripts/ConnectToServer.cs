@@ -5,6 +5,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 {
     private void Awake()
     {
+        PhotonNetwork.GameVersion = "2.0";
         PhotonNetwork.ConnectUsingSettings();
     }
 

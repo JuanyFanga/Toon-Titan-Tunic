@@ -7,7 +7,10 @@ public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     //hacer una lista con varias posiciones y poder elegir entre esas posiciones
-    
+
+    [SerializeField] private Material redMaterial;
+    [SerializeField] private Material blueMaterial;
+
     GameObject player;
     private PhotonView _pv;
 
@@ -21,6 +24,9 @@ public class PlayerSpawn : MonoBehaviour
         player = PhotonNetwork.Instantiate(playerPrefab.name,
             new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2)),
             Quaternion.identity);
+
+        int playerIndex = PhotonNetwork.PlayerList.Length;
+        _pv.RPC("ChangeColor", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID, playerIndex);
     }
 
     //[PunRPC]
@@ -30,8 +36,19 @@ public class PlayerSpawn : MonoBehaviour
     //    {
     //        switch (PlayersData.Value.UserId)
     //        {
-                
+
     //        }
     //    }
     //}
+
+    [PunRPC]
+    private void ChangeColor(int playerViewID, int playerIndex)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(playerViewID);
+
+        if (targetPhotonView != null)
+        {
+            targetPhotonView.gameObject.GetComponent<MeshRenderer>().material = (playerIndex == 1) ? redMaterial : blueMaterial;
+        }
+    }
 }

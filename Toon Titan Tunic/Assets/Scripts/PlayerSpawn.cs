@@ -22,7 +22,7 @@ public class PlayerSpawn : MonoBehaviour
     private void Start()
     {
         player = PhotonNetwork.Instantiate(playerPrefab.name,
-            new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2)),
+            new Vector3(Random.Range(-2, 2), 0.25f, Random.Range(-2, 2)),
             Quaternion.identity);
 
         int playerIndex = PhotonNetwork.PlayerList.Length;

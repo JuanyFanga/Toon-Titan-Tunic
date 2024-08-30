@@ -48,7 +48,7 @@ public class PlayerSpawn : MonoBehaviour
 
         if (targetPhotonView != null)
         {
-            targetPhotonView.gameObject.GetComponent<MeshRenderer>().material = (playerIndex == 1) ? redMaterial : blueMaterial;
+            targetPhotonView.gameObject.GetComponentInChildren<MeshRenderer>().material = (playerIndex == 1) ? redMaterial : blueMaterial;
         }
     }
 }

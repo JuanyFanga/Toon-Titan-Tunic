@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Rigidbody _rb;
+    Animator _anim;
+
+    private void Awake()
     {
-        
+        _rb = GetComponentInParent<Rigidbody>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        _anim.SetFloat("Vel", _rb.velocity.magnitude);
     }
+
+
 }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModel : MonoBehaviour, IPlayer
 {
-    Rigidbody _rb;
+    [SerializeField] private Transform SKM;
+    private Rigidbody _rb;
     public float Speed;
 
     private void Awake()
@@ -23,7 +22,11 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void Look(Vector3 dir)
     {
-        transform.forward = dir;
+        float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+        Debug.Log("Angle: " + angle);
+        Debug.Log("X*90: " + dir.x * 90);
+
+        SKM.localRotation = Quaternion.Slerp(SKM.localRotation, Quaternion.Euler(-90, angle, 0), 0.35f);
     }
 
     public void Dash()

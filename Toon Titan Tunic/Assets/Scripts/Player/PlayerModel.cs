@@ -23,8 +23,6 @@ public class PlayerModel : MonoBehaviour, IPlayer
     public void Look(Vector3 dir)
     {
         float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-        Debug.Log("Angle: " + angle);
-        Debug.Log("X*90: " + dir.x * 90);
 
         SKM.localRotation = Quaternion.Slerp(SKM.localRotation, Quaternion.Euler(-90, angle, 0), 0.35f);
     }

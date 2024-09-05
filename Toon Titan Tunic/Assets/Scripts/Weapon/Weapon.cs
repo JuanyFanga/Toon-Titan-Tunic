@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public class Weapon : MonoBehaviour, IWeapon
 {
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _weaponPoint;
-    [SerializeField] private bool _hasBullet;
+    [SerializeField] private bool _hasBullet = true;
 
     private void Update()
     {
@@ -17,6 +18,7 @@ public class Weapon : MonoBehaviour, IWeapon
         }
     }
 
+    [PunRPC]
     public void Shoot()
     {
         Instantiate(_bullet, _weaponPoint.position, Quaternion.identity);

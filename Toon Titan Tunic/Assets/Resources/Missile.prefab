@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 1663735140684188244}
   - component: {fileID: 7290345742327307947}
   - component: {fileID: 5321503356924390912}
+  - component: {fileID: 6859631830957292631}
+  - component: {fileID: 510444005124365390}
   m_Layer: 7
   m_Name: Missile
   m_TagString: Untagged
@@ -180,3 +182,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5350584, y: 0.5166447, z: 0.6363327}
   m_Center: {x: 0.0023017526, y: 0.002301693, z: -0.01611188}
+--- !u!114 &6859631830957292631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687621084049323187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &510444005124365390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687621084049323187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6859631830957292631}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

@@ -44,14 +44,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_pv.IsMine && other.transform.CompareTag("Coin"))
-        {
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("CollectCoin", RpcTarget.AllBuffered, other.gameObject.GetComponent<PhotonView>().ViewID);
-        }
-    }
 
     [PunRPC]
     void CollectCoin(int coinViewID)

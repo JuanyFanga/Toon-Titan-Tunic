@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Shoot();
+    void Shoot(Quaternion spawnRot);
     void Reload();
     //void Parry();
 }

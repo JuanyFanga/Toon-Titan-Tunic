@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private bool _hasBullet = true;
+    [SerializeField] private ParticleSystem _fireParticle;
     private PhotonView _pv;
     private void Awake()
     {
@@ -41,6 +42,8 @@ public class Weapon : MonoBehaviour, IWeapon
         GameObject projectile = PhotonNetwork.Instantiate(_bullet.name,
             _shootPoint.position,
             spawnRot);
+
+        Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation);
     }
 
     public void Reload()

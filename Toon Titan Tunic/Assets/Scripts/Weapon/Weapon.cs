@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour, IWeapon
             _shootPoint.position,
             spawnRot);
 
-        Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation);
+        Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation, _shootPoint);
     }
 
     public void Reload()

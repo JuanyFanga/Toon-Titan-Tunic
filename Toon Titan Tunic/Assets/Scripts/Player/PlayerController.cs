@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private PhotonView _pv;
     private Camera _camera;
+    private Vector3 _direction;
 
     private void Awake()
     {
@@ -32,20 +33,30 @@ public class PlayerController : MonoBehaviour
             var h = Input.GetAxis("Horizontal");
             var v = Input.GetAxis("Vertical");
 
-            Vector3 dir = new Vector3(h, 0, v);
+            _direction = new Vector3(h, 0, v);
 
             if (h == 0 && v == 0)
                 _player.Move(Vector3.zero);
 
             else
             {
-                _player.Move(dir.normalized);
-                _player.Look(dir);
+                _player.Look(_direction);
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _player.Dash();
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_pv.IsMine)
+        {
+            if (!(_direction.x == 0 && _direction.z == 0))
+            {
+                _player.Move(_direction.normalized);
             }
         }
     }
@@ -61,4 +72,6 @@ public class PlayerController : MonoBehaviour
             //GameManager.Instance.AddCoinToPool();
         }
     }
+
+ 
 }

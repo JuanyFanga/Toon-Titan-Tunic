@@ -17,6 +17,4 @@ public class PlayerView : MonoBehaviour
     {
         _anim.SetFloat("Vel", _rb.velocity.magnitude);
     }
-
-
 }

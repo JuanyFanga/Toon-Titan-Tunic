@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,9 +42,13 @@ public class PlayerController : MonoBehaviour
                 _player.Move(dir.normalized);
                 _player.Look(dir);
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _player.Dash();
+            }
         }
     }
-
 
     [PunRPC]
     void CollectCoin(int coinViewID)

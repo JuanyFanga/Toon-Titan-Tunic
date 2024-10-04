@@ -4,14 +4,30 @@ using UnityEngine.Experimental.AI;
 public class PlayerModel : MonoBehaviour, IPlayer
 {
     [SerializeField] private Transform SKM;
+    [SerializeField] private GameObject _hologramPrefab;
+    private GameObject _spawnedHologram;
     private Rigidbody _rb;
     public float Speed;
-    private float _dashForce = 40;
+    private float _dashForce = 80;
     private bool isDashing;
+    private float _dashTimer;
+    private float _dashTime = 3f;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if (_dashTimer <= 0)
+        {
+
+        }
+
+        _dashTimer -= Time.deltaTime;
+
+        Debug.Log($"Dash timer is: {_dashTimer}");
     }
 
     public void Move(Vector3 dir)
@@ -35,9 +51,20 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void Dash()
     {
-        isDashing = true;
-        _rb.AddForce(SKM.up * _dashForce * -1, ForceMode.Impulse);
-        Invoke("FinishDash",0.1f);
+        if (_spawnedHologram != null)
+        {
+            transform.position = _spawnedHologram.transform.position;
+            Destroy(_spawnedHologram);
+        }
+
+        else
+        {
+            isDashing = true;
+            _dashTimer = _dashTime;
+            _rb.AddForce(SKM.up * _dashForce * -1, ForceMode.Impulse);
+            SpawnCopy();
+            Invoke("FinishDash", 0.1f);
+        }  
     }
 
     public void FinishDash()
@@ -45,6 +72,11 @@ public class PlayerModel : MonoBehaviour, IPlayer
         isDashing = false;
     }
     
+    public void SpawnCopy()
+    {
+        _spawnedHologram = Instantiate(_hologramPrefab, transform.position, SKM.localRotation * Quaternion.Euler(90,0,0));
+    }
+
     public void Interact()
     {
 

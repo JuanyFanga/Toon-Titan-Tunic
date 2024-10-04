@@ -8,7 +8,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
     private GameObject _spawnedHologram;
     private Rigidbody _rb;
     public float Speed;
-    private float _dashForce = 80;
+    private float _dashForce = 40;
     private bool isDashing;
     private float _dashTimer;
     private float _dashTime = 3f;
@@ -22,7 +22,9 @@ public class PlayerModel : MonoBehaviour, IPlayer
     {
         if (_dashTimer <= 0)
         {
-
+            Destroy(_spawnedHologram);
+            _dashTimer = 0;
+            return;
         }
 
         _dashTimer -= Time.deltaTime;
@@ -69,6 +71,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void FinishDash()
     {
+        _rb.velocity = Vector3.zero;
         isDashing = false;
     }
     

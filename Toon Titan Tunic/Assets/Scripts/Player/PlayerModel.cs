@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 
@@ -12,24 +13,31 @@ public class PlayerModel : MonoBehaviour, IPlayer
     private bool isDashing;
     private float _dashTimer;
     private float _dashTime = 3f;
+    private PhotonView _pv;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _pv = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        if (_dashTimer <= 0)
+        if (_pv.IsMine)
         {
-            Destroy(_spawnedHologram);
-            _dashTimer = 0;
-            return;
+            if (_spawnedHologram!=null)
+            {
+                if (_dashTimer <= 0)
+                {
+                    PhotonNetwork.Destroy(_spawnedHologram);
+                    _dashTimer = 0;
+                    return;
+                }
+
+                _dashTimer -= Time.deltaTime;
+
+            }
         }
-
-        _dashTimer -= Time.deltaTime;
-
-        Debug.Log($"Dash timer is: {_dashTimer}");
     }
 
     public void Move(Vector3 dir)
@@ -56,7 +64,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
         if (_spawnedHologram != null)
         {
             transform.position = _spawnedHologram.transform.position;
-            Destroy(_spawnedHologram);
+            PhotonNetwork.Destroy(_spawnedHologram);
         }
 
         else
@@ -77,7 +85,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
     
     public void SpawnCopy()
     {
-        _spawnedHologram = Instantiate(_hologramPrefab, transform.position, SKM.localRotation * Quaternion.Euler(90,0,0));
+        _spawnedHologram = PhotonNetwork.Instantiate(_hologramPrefab.name, transform.position, SKM.localRotation * Quaternion.Euler(90,0,0));
     }
 
     public void Interact()

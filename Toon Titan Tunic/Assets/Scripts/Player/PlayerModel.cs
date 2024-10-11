@@ -6,6 +6,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
 {
     [SerializeField] private Transform SKM;
     [SerializeField] private GameObject _hologramPrefab;
+    [SerializeField] private GameObject _deathNiagara;
     private GameObject _spawnedHologram;
     private Rigidbody _rb;
     public float Speed;
@@ -25,7 +26,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
     {
         if (_pv.IsMine)
         {
-            if (_spawnedHologram!=null)
+            if (_spawnedHologram != null)
             {
                 if (_dashTimer <= 0)
                 {
@@ -74,7 +75,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
             _rb.AddForce(SKM.up * _dashForce * -1, ForceMode.Impulse);
             SpawnCopy();
             Invoke("FinishDash", 0.1f);
-        }  
+        }
     }
 
     public void FinishDash()
@@ -82,17 +83,17 @@ public class PlayerModel : MonoBehaviour, IPlayer
         _rb.velocity = Vector3.zero;
         isDashing = false;
     }
-    
+
     public void SpawnCopy()
     {
-        _spawnedHologram = PhotonNetwork.Instantiate(_hologramPrefab.name, transform.position, SKM.localRotation * Quaternion.Euler(90,0,0));
+        _spawnedHologram = PhotonNetwork.Instantiate(_hologramPrefab.name, transform.position, SKM.localRotation * Quaternion.Euler(90, 0, 0));
     }
 
     public void Interact()
     {
 
     }
-    
+
     public void PickupBullet()
     {
 
@@ -104,6 +105,13 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        PhotonNetwork.Instantiate(_deathNiagara.name, transform.position, Quaternion.identity);
+        _pv.RPC("OnDeath", RpcTarget.All);
+    }
 
+    [PunRPC]
+    void OnDeath()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }

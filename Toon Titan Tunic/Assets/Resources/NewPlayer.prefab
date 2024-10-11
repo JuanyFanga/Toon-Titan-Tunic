@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SKM: {fileID: 3013048666117215669}
   _hologramPrefab: {fileID: 8143507199409724730, guid: e207e6635ddd63642bf897b74274af01, type: 3}
+  _deathNiagara: {fileID: 8228784164371057703, guid: aef2a4275e11ac844a17b569f3bf2864, type: 3}
   Speed: 4
 --- !u!114 &2119216874661822356
 MonoBehaviour:

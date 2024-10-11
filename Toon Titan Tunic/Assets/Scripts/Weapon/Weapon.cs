@@ -19,7 +19,6 @@ public class Weapon : MonoBehaviour, IWeapon
     }
     private void Update()
     {
-
         if (_pv.IsMine)
         {
             if (Input.GetMouseButtonDown(0))// && _hasBullet)
@@ -42,6 +41,8 @@ public class Weapon : MonoBehaviour, IWeapon
         GameObject projectile = PhotonNetwork.Instantiate(_bullet.name,
             _shootPoint.position,
             spawnRot);
+
+        projectile.GetComponent<IMissile>().Initialize(GetComponent<PlayerController>().ID);
 
         Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation, _shootPoint);
     }

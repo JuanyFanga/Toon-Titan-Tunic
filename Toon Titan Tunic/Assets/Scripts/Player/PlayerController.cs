@@ -7,12 +7,14 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public int ID => _playerID;
     IPlayer _player;
     [SerializeField] private int count = 0;
-
+    
     private PhotonView _pv;
     private Camera _camera;
     private Vector3 _direction;
+    private int _playerID;
 
     private void Awake()
     {
@@ -73,5 +75,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void InitPlayerController(int playerID)
+    {
+        _playerID = playerID;
+    }
  
 }

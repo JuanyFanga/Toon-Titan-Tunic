@@ -7,12 +7,15 @@ public class Missile : MonoBehaviour, IMissile
     private bool _canExplode;
     private PhotonView _pv;
     [SerializeField] private float _speed;
+    [SerializeField] private float _stoppingTime = 5;
+    private float _stoppingTimer = 5;
     [SerializeField] float bounceFactor = 1f;
     private Vector3 _velocity;
-    private GameObject _owner;
-    public void Initialize(GameObject owner)
+    private int _ownerID;
+
+    public void Initialize(int ID)
     {
-        _owner = owner;
+        _pv.RPC("OnInit", RpcTarget.All, ID);
     }
 
     private void Awake()
@@ -32,21 +35,31 @@ public class Missile : MonoBehaviour, IMissile
         if (_canExplode)
         {
             transform.position += _velocity * Time.fixedDeltaTime;
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (_stoppingTimer > 0)
+                {
+                    _stoppingTimer -= Time.fixedDeltaTime;
+                }
+                else
+                {
+                    if (_velocity.magnitude > 5)
+                    {
+                        _velocity *= .975f;
+                    }
+                    else
+                    {
+                        _velocity = Vector3.zero;
+                    }
+                }
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (_canExplode && collision.collider.CompareTag("Player"))
-        {
-            if (collision.collider.gameObject != _owner)
-            {
-                var hitPlayer = collision.gameObject.GetComponent<IPlayer>();
-                hitPlayer.Die();
-            }
-        }
-        else if (_canExplode && !collision.collider.CompareTag("Player"))
+        if (_canExplode && !collision.collider.CompareTag("Player"))
         {
             Vector3 normal = collision.contacts[0].normal;
 
@@ -59,6 +72,23 @@ public class Missile : MonoBehaviour, IMissile
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Player"))
+        {
+            print("owoner id " + _ownerID);
+            print("other id " + other.GetComponent<PlayerController>().ID);
+        }
+
+
+        if (_canExplode && other.CompareTag("Player"))
+        {
+            if (other.GetComponent<PlayerController>().ID != _ownerID)
+            {
+                var hitPlayer = other.GetComponent<IPlayer>();
+                hitPlayer.Die();
+            }
+        }
+
+
         if (!_canExplode && other.CompareTag("Player"))
         {
             var hitPlayerWeapon = other.GetComponent<IWeapon>();
@@ -77,6 +107,13 @@ public class Missile : MonoBehaviour, IMissile
     {
         _velocity = reflectedVelocity;
         transform.forward = _velocity.normalized;
+    }
+
+    [PunRPC]
+    private void OnInit(int ID)
+    { 
+        _stoppingTimer = _stoppingTime;
+        _ownerID= ID;
     }
 }
 

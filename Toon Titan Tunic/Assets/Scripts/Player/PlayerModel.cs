@@ -105,8 +105,15 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.AddPointToPlayer(GetComponent<PlayerController>().ID);
+        }
+
         PhotonNetwork.Instantiate(_deathNiagara.name, transform.position, Quaternion.identity);
         _pv.RPC("OnDeath", RpcTarget.All);
+
+        print("Dieee");
     }
 
     [PunRPC]

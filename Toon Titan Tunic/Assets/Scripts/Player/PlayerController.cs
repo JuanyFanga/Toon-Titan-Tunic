@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 {
     public int ID => _playerID;
     IPlayer _player;
-    [SerializeField] private int count = 0;
     
     private PhotonView _pv;
     private Camera _camera;
@@ -18,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+
         _player = GetComponent<IPlayer>();
         _pv = GetComponent<PhotonView>();
         _camera = GetComponentInChildren<Camera>();
@@ -60,18 +61,6 @@ public class PlayerController : MonoBehaviour
             {
                 _player.Move(_direction.normalized);
             }
-        }
-    }
-
-    [PunRPC]
-    void CollectCoin(int coinViewID)
-    {
-        PhotonView coinPhotonView = PhotonView.Find(coinViewID);
-
-        if (coinPhotonView != null)
-        {
-            PhotonNetwork.Destroy(coinPhotonView.gameObject);
-            //GameManager.Instance.AddCoinToPool();
         }
     }
 

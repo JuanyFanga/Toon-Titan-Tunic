@@ -10,14 +10,18 @@ public class PlayerSpawn : MonoBehaviour
     [SerializeField] private Material redMaterial;
     [SerializeField] private Material blueMaterial;
 
+    private GameObject _timerPanel;
+
     GameObject player;
     private PhotonView _pv;
 
     private void Awake()
     {
         _pv = GetComponent<PhotonView>();
+        _timerPanel = GameObject.FindGameObjectWithTag("TimerPanel").gameObject;
+        _timerPanel.SetActive(true);
     }
-
+        
     private void Start()
     {
         player = PhotonNetwork.Instantiate(playerPrefab.name,
@@ -26,6 +30,8 @@ public class PlayerSpawn : MonoBehaviour
 
         int playerIndex = PhotonNetwork.PlayerList.Length;
         _pv.RPC("ChangeColor", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID, playerIndex);
+
+        _timerPanel.GetComponent<TimerBoard>().ResetTimer();
     }
 
     //[PunRPC]

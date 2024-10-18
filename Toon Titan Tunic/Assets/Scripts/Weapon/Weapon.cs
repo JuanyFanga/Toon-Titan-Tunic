@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private bool _hasBullet = true;
     [SerializeField] private ParticleSystem _fireParticle;
+    [SerializeField] private Camera _camera;
     private PhotonView _pv;
     private void Awake()
     {
@@ -21,31 +22,42 @@ public class Weapon : MonoBehaviour, IWeapon
     {
         if (_pv.IsMine)
         {
-            if (Input.GetMouseButtonDown(0))// && _hasBullet)
+            if (Input.GetMouseButtonDown(0) && _hasBullet)
             {
-                Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-                Vector2 mousePosition = Input.mousePosition;
-                Vector2 direction = mousePosition - screenCenter;
-                direction.Normalize();
-                //direction.y = 0;
-                float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-
-                transform.GetChild(0).rotation = Quaternion.Euler(-90, angle, 0);
-                Shoot(Quaternion.Euler(0, angle, 0));
+                Shoot();
+                _hasBullet = false;
             }
         }
     }
 
-    public void Shoot(Quaternion spawnRot)
+    public void Shoot()
     {
-        GameObject projectile = PhotonNetwork.Instantiate(_bullet.name,
+        GameObject projectile = PhotonNetwork.Instantiate(
+            _bullet.name,
             _shootPoint.position,
-            spawnRot);
+            PlayerAim()
+        );
 
         projectile.GetComponent<IMissile>().Initialize(GetComponent<PlayerController>().ID);
 
         Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation, _shootPoint);
     }
+
+    public Quaternion PlayerAim()
+    {
+        Vector3 positionOnScreen = _camera.WorldToViewportPoint(transform.position);
+
+        Vector3 mouseOnScreen = _camera.ScreenToViewportPoint(Input.mousePosition);
+
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+        return Quaternion.Euler(new Vector3(0f, -angle, 0f));
+    }
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2((a.y - b.y) * 9, (a.x - b.x) * 16) * Mathf.Rad2Deg;
+    }
+
 
     public void Reload()
     {

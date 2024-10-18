@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour, IMissile
 {
-    private bool _canExplode;
+    private bool _canExplode = true;
     private PhotonView _pv;
     [SerializeField] private float _speed;
     [SerializeField] private float _stoppingTime = 5;
+    [SerializeField] private GameObject _pickupableMissile;
     private float _stoppingTimer = 5;
     [SerializeField] float bounceFactor = 1f;
     private Vector3 _velocity;
@@ -32,12 +33,12 @@ public class Missile : MonoBehaviour, IMissile
 
     private void FixedUpdate()
     {
-        if (_canExplode)
+        if (PhotonNetwork.IsMasterClient)
         {
-            transform.position += _velocity * Time.fixedDeltaTime;
-
-            if (PhotonNetwork.IsMasterClient)
+            if (_canExplode)
             {
+                transform.position += _velocity * Time.fixedDeltaTime;
+
                 if (_stoppingTimer > 0)
                 {
                     _stoppingTimer -= Time.fixedDeltaTime;
@@ -51,10 +52,17 @@ public class Missile : MonoBehaviour, IMissile
                     else
                     {
                         _velocity = Vector3.zero;
+                        _canExplode = false;
                     }
                 }
             }
+            else
+            {
+                PhotonNetwork.Instantiate(_pickupableMissile.name, transform.position, Quaternion.identity);
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
+       
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -99,7 +107,6 @@ public class Missile : MonoBehaviour, IMissile
     [PunRPC]
     private void OnSpawn()
     {
-        _canExplode = true;
         _velocity = transform.forward * _speed;
     }
 
@@ -112,7 +119,6 @@ public class Missile : MonoBehaviour, IMissile
     [PunRPC]
     private void OnInit(int ID)
     { 
-        _stoppingTimer = _stoppingTime;
         _ownerID= ID;
     }
 }

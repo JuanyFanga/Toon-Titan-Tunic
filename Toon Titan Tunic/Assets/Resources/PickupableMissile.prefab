@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951504942688083938}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5000002, y: -0.49999982, z: 0.50000024, w: 0.49999988}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8348391628310081033}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
 --- !u!33 &7921740707128199298
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92,14 +92,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8348391628310081033}
-  - component: {fileID: 1663735140684188244}
-  - component: {fileID: 7290345742327307947}
   - component: {fileID: 5321503356924390912}
   - component: {fileID: 510444005124365390}
   - component: {fileID: 8976294257643021188}
-  - component: {fileID: 4032885080577765103}
+  - component: {fileID: 3080391833971599056}
   m_Layer: 7
-  m_Name: Missile
+  m_Name: PickupableMissile
   m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,49 +119,6 @@ Transform:
   - {fileID: 6374380065770891322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1663735140684188244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8687621084049323187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e8d33f416c089c49bc40aa0dbbbd888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 10
-  _stoppingTime: 5
-  _pickupableMissile: {fileID: 8687621084049323187, guid: 1ff958fcb0cc6e741b9d429cec5ab00e, type: 3}
-  bounceFactor: 0.08
---- !u!54 &7290345742327307947
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8687621084049323187}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!65 &5321503356924390912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,7 +134,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -205,7 +160,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8976294257643021188}
-  - {fileID: 4032885080577765103}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -222,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -242,7 +196,7 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &4032885080577765103
+--- !u!114 &3080391833971599056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,10 +205,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8687621084049323187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4396258a88be64e41a678bcb99361784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
+  amplitud: 1
+  frecuencia: 1

@@ -403,6 +403,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 5399970386771390390}
   _hasBullet: 1
   _fireParticle: {fileID: 8228784164371057753, guid: 4c19a303bbc5f418aa6e60a3dfcd93ad, type: 3}
+  _camera: {fileID: 1776605885967117421}
 --- !u!65 &996052255341882907
 BoxCollider:
   m_ObjectHideFlags: 0

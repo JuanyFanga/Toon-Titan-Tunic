@@ -55,7 +55,7 @@ public class Weapon : MonoBehaviour, IWeapon
     }
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
-        return Mathf.Atan2((a.y - b.y) * 9, (a.x - b.x) * 16) * Mathf.Rad2Deg;
+        return Mathf.Atan2((a.x - b.x) * 16, -(a.y - b.y) * 9) * Mathf.Rad2Deg;
     }
 
 

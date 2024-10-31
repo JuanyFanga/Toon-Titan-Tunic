@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Missile
   - TimerPanel
+  - HoleTrigger
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Wall
   - Missile
   - TimerPanel
-  - 
+  - HoleTrigger
   - 
   - 
   - 

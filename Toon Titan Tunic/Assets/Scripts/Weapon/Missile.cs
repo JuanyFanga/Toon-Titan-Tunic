@@ -13,6 +13,7 @@ public class Missile : MonoBehaviour, IMissile
     [SerializeField] float bounceFactor = 1f;
     private Vector3 _velocity;
     private int _ownerID;
+    public bool IsInHole;
 
     public void Initialize(int ID)
     {
@@ -39,7 +40,7 @@ public class Missile : MonoBehaviour, IMissile
             {
                 transform.position += _velocity * Time.fixedDeltaTime;
 
-                if (_stoppingTimer > 0)
+                if (_stoppingTimer > 0 && !IsInHole)
                 {
                     _stoppingTimer -= Time.fixedDeltaTime;
                 }

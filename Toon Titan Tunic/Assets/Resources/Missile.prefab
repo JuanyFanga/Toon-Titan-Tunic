@@ -137,6 +137,7 @@ MonoBehaviour:
   _stoppingTime: 5
   _pickupableMissile: {fileID: 8687621084049323187, guid: 1ff958fcb0cc6e741b9d429cec5ab00e, type: 3}
   bounceFactor: 0.08
+  IsInHole: 0
 --- !u!54 &7290345742327307947
 Rigidbody:
   m_ObjectHideFlags: 0

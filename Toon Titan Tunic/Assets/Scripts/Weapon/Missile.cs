@@ -40,9 +40,12 @@ public class Missile : MonoBehaviour, IMissile
             {
                 transform.position += _velocity * Time.fixedDeltaTime;
 
-                if (_stoppingTimer > 0 && !IsInHole)
+                if (_stoppingTimer > 0)
                 {
-                    _stoppingTimer -= Time.fixedDeltaTime;
+                    if (!IsInHole)
+                    {
+                        _stoppingTimer -= Time.fixedDeltaTime;
+                    }
                 }
                 else
                 {

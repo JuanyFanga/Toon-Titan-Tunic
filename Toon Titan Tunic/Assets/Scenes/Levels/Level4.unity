@@ -4022,6 +4022,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6924431147109722665, guid: 07dbb232e0720488a97306627ff2f358, type: 3}
   m_PrefabInstance: {fileID: 1431615128}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1445780396
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 333188461647692625, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: meteorZone.x
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 333188461647692625, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: meteorZone.y
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232660304736759321, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127831379098923006, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
+      propertyPath: m_Name
+      value: MeteorSystem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff75c61a3f83f0942a802af3bfd4af76, type: 3}
 --- !u!1 &1468087732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6203,3 +6268,4 @@ SceneRoots:
   - {fileID: 221818534}
   - {fileID: 1103249975}
   - {fileID: 1485238576}
+  - {fileID: 1445780396}

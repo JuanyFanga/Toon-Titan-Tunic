@@ -28,6 +28,18 @@ public class MeteorSystem : MonoBehaviour
             Quaternion.identity);
     }
 
+    private float GetInvokeTiming()
+    {
+        float newTime = 3;
+
+        newTime -= 0.5f;
+
+        if (newTime <= 1)
+            newTime = 1;
+
+        return newTime;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

@@ -146,6 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _velocity: 0.5
+  _detectionRadius: 1.5
+  _detectionLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!54 &3176363940889349199
 Rigidbody:
   m_ObjectHideFlags: 0

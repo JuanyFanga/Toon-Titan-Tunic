@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public LevelsManager _levelsManager;
+
     private int player1Points = 0;
     private int player2Points = 0;
 
+    private int playersReseted;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -55,6 +58,24 @@ public class GameManager : MonoBehaviour
 
     public void AddPointToPlayer(int playerID)
     {
-        _pv.RPC("AddPoint", RpcTarget.AllBuffered, playerID);
+        _pv.RPC("AddPoint", RpcTarget.All, playerID);
+        Invoke("NextRound", 5);
+    }
+
+    public void NextRound()
+    {
+        playersReseted = 0;
+        _levelsManager.NextRound();
+    }
+
+    public bool ArePlayersAlreadySpawned()
+    {
+        return _player.Count > 1;
+    }
+
+    public void ResetPlayer(Vector3 location)
+    {
+        _player[playersReseted].transform.position = location;
+        playersReseted++;
     }
 }

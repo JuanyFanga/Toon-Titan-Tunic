@@ -60,7 +60,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public void Quit()
     {
         Application.Quit();
-        Debug.Log("Has quit!!");
     }
 
     private void CreateRoom()
@@ -68,7 +67,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         RoomOptions roomConfigurations = new RoomOptions();
         roomConfigurations.MaxPlayers = 2;
         PhotonNetwork.CreateRoom(createInput.text, roomConfigurations);
-        print("Has createdd!!");
     }
 
     private void JoinRoom()
@@ -79,6 +77,5 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel(2);
-        print("Se unió a level 2");
     }
 }

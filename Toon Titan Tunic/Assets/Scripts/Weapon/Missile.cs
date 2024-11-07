@@ -24,17 +24,10 @@ public class Missile : MonoBehaviour, IMissile
     {
         _pv = GetComponent<PhotonView>();
     }
-    private void Start()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            _pv.RPC("OnSpawn", RpcTarget.AllBuffered);
-        }
-    }
 
     private void FixedUpdate()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (_pv.IsMine)
         {
             if (_canExplode)
             {
@@ -71,47 +64,50 @@ public class Missile : MonoBehaviour, IMissile
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_canExplode && !collision.collider.CompareTag("Player"))
+        if (_pv.IsMine)
         {
-            Vector3 normal = collision.contacts[0].normal;
 
-            Vector3 reflectedVelocity = Vector3.Reflect(_velocity, normal);
-            _velocity.y = 0;
-            OnBounce(reflectedVelocity);
-            //_pv.RPC("OnBounce", RpcTarget.Others, reflectedVelocity);
+
+            if (_canExplode && !collision.collider.CompareTag("Player"))
+            {
+                Vector3 normal = collision.contacts[0].normal;
+
+                Vector3 reflectedVelocity = Vector3.Reflect(_velocity, normal);
+                _velocity.y = 0;
+                OnBounce(reflectedVelocity);
+                //_pv.RPC("OnBounce", RpcTarget.Others, reflectedVelocity);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (_pv.IsMine)
         {
-            print("owoner id " + _ownerID);
-            print("other id " + other.GetComponent<PlayerController>().ID);
-        }
+
+            //if (other.CompareTag("Player"))
+            //{
+            //    print("owoner id " + _ownerID);
+            //    print("other id " + other.GetComponent<PlayerController>().ID);
+            //}
 
 
-        if (_canExplode && other.CompareTag("Player"))
-        {
-            if (other.GetComponent<PlayerController>().ID != _ownerID)
+            if (_canExplode && other.CompareTag("Player"))
             {
-                var hitPlayer = other.GetComponent<IPlayer>();
-                hitPlayer.Die();
+                if (other.GetComponent<PlayerController>().ID != _ownerID)
+                {
+                    var hitPlayer = other.GetComponent<IPlayer>();
+                    hitPlayer.Die();
+                }
+            }
+
+
+            if (!_canExplode && other.CompareTag("Player"))
+            {
+                var hitPlayerWeapon = other.GetComponent<IWeapon>();
+                hitPlayerWeapon.Reload();
             }
         }
-
-
-        if (!_canExplode && other.CompareTag("Player"))
-        {
-            var hitPlayerWeapon = other.GetComponent<IWeapon>();
-            hitPlayerWeapon.Reload();
-        }
-    }
-
-    [PunRPC]
-    private void OnSpawn()
-    {
-        _velocity = transform.forward * _speed;
     }
 
     private void OnBounce(Vector3 reflectedVelocity)
@@ -124,6 +120,7 @@ public class Missile : MonoBehaviour, IMissile
     private void OnInit(int ID)
     { 
         _ownerID= ID;
+        _velocity = transform.forward * _speed;
     }
 }
 

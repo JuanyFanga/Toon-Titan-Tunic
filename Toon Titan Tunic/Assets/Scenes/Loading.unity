@@ -982,8 +982,8 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
+  Synchronization: 1
+  OwnershipTransfer: 2
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 999
@@ -1006,6 +1006,7 @@ MonoBehaviour:
   _pointPanel: {fileID: 1403394465}
   _player1PointsTexts: {fileID: 509563687}
   _player2PointsTexts: {fileID: 1269885003}
+  _levelsManager: {fileID: 0}
 --- !u!4 &2122565223
 Transform:
   m_ObjectHideFlags: 0

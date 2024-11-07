@@ -113,7 +113,6 @@ public class PlayerModel : MonoBehaviour, IPlayer
         PhotonNetwork.Instantiate(_deathNiagara.name, transform.position, Quaternion.identity);
         _pv.RPC("OnDeath", RpcTarget.All);
 
-        print("Dieee");
     }
 
     [PunRPC]

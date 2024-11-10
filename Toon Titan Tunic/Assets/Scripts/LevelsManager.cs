@@ -6,27 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class LevelsManager : MonoBehaviour
 {
-    private int lastSceneLoaded;
+    private int lastSceneLoaded=-1;
     private PhotonView _pv;
     private void Awake()
     {
-        _pv = GetComponent<PhotonView>(); 
-        DontDestroyOnLoad(gameObject);
-        GameManager.Instance._levelsManager = this;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            _pv = GetComponent<PhotonView>();
+            DontDestroyOnLoad(gameObject);
+        }
     }
     private void Start()
     {
-        lastSceneLoaded = 3;
+
         if (PhotonNetwork.IsMasterClient)
         {
-         //   _pv.RPC("LoadSceneAdditive", RpcTarget.AllBuffered, 3);
+            GameManager.Instance._levelsManager = this;
+            _pv.RPC("LoadSceneAdditive", RpcTarget.AllBuffered, 3);
         }
-        LoadSceneAdditive(3);
     }
 
     public void NextRound()
     {
-        SceneManager.UnloadSceneAsync(lastSceneLoaded);
+   
         int tempSceneToLoad;
         do
         {
@@ -34,12 +36,17 @@ public class LevelsManager : MonoBehaviour
         }
         while (tempSceneToLoad == lastSceneLoaded);
 
-        LoadSceneAdditive(tempSceneToLoad);
-        // _pv.RPC("LoadSceneAdditive", RpcTarget.AllBuffered, lastSceneLoaded);
+        //LoadSceneAdditive(tempSceneToLoad);
+         _pv.RPC("LoadSceneAdditive", RpcTarget.All, tempSceneToLoad);
     }
-    //[PunRPC]
+
+    [PunRPC]
     private void LoadSceneAdditive(int sceneToLoad)
     {
+        if (lastSceneLoaded!=-1)
+        {
+            SceneManager.UnloadSceneAsync(lastSceneLoaded);
+        }
         PhotonNetwork.LoadAdditiveLevel(sceneToLoad);
         lastSceneLoaded = sceneToLoad;
     }

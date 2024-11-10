@@ -105,14 +105,27 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
     public void Die()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (transform.GetChild(0).gameObject.activeInHierarchy)
         {
-            GameManager.Instance.AddPointToPlayer(GetComponent<PlayerController>().ID);
+            PhotonNetwork.Instantiate(_deathNiagara.name, transform.position, Quaternion.identity);
+            _pv.RPC("OnDeath", RpcTarget.All);
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameManager.Instance.AddPointToPlayer(GetComponent<PlayerController>().ID);
+            }
+            else
+            {
+                PlayerController[] controllers = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+                foreach (PlayerController controller in controllers) 
+                {
+                    if (controller.ID == 1)
+                    {
+                        controller.SendDeathToManager();
+                    } 
+                }
+            }
         }
-
-        PhotonNetwork.Instantiate(_deathNiagara.name, transform.position, Quaternion.identity);
-        _pv.RPC("OnDeath", RpcTarget.All);
-
     }
 
     [PunRPC]

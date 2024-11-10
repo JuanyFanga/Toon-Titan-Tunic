@@ -21,23 +21,16 @@ public class PlayerSpawn : MonoBehaviour
         _timerPanel = GameObject.FindGameObjectWithTag("TimerPanel").gameObject;
         _timerPanel.SetActive(true);
     }
-        
+
     private void Start()
     {
-        if (!GameManager.Instance.ArePlayersAlreadySpawned())
-        {
-            player = PhotonNetwork.Instantiate(playerPrefab.name,
-            new Vector3(Random.Range(-2, 2), 0.25f, Random.Range(-2, 2)),
-            Quaternion.identity);
+        player = PhotonNetwork.Instantiate(playerPrefab.name,
+        new Vector3(Random.Range(-2, 2), 0.25f, Random.Range(-2, 2)),
+        Quaternion.identity);
 
-            int playerIndex = PhotonNetwork.PlayerList.Length;
-            _pv.RPC("ChangeColor", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID, playerIndex);
-        }
-        else
-        {
-            GameManager.Instance.ResetPlayer(new Vector3(Random.Range(-2, 2), 0.25f, Random.Range(-2, 2)));
-        }
-       
+        int playerIndex = PhotonNetwork.PlayerList.Length;
+        _pv.RPC("ChangeColor", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID, playerIndex);
+
 
         _timerPanel.GetComponent<TimerBoard>().ResetTimer();
     }

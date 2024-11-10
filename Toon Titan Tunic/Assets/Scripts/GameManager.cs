@@ -22,18 +22,21 @@ public class GameManager : MonoBehaviour
     private int playersReseted;
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
-        _pointPanel.SetActive(false);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            _pointPanel.SetActive(false);
 
-        if (Instance == null)
-        {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            _pv = GetComponent<PhotonView>();
         }
-        else
-        {
-            Destroy(gameObject);
-        }  
-        _pv = GetComponent<PhotonView>();
     }
 
     [PunRPC]
@@ -51,14 +54,12 @@ public class GameManager : MonoBehaviour
         _player1PointsTexts.text = player1Points.ToString();
         _player2PointsTexts.text = player2Points.ToString();
         _pointPanel.SetActive(true);
-
-        Debug.Log($"Player1 points are: {player1Points}");
-        Debug.Log($"Player2 points are: {player2Points}");
+        print("Point added on RPC");
     }
 
     public void AddPointToPlayer(int playerID)
     {
-        _pv.RPC("AddPoint", RpcTarget.All, playerID);
+        _pv.RPC("AddPoint", RpcTarget.AllBuffered, playerID);
         Invoke("NextRound", 5);
     }
 

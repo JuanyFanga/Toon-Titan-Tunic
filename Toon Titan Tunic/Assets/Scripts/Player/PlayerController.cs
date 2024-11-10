@@ -68,5 +68,10 @@ public class PlayerController : MonoBehaviour
     {
         _playerID = playerID;
     }
+
+    public void SendDeathToManager()
+    {
+        GameManager.Instance.AddPointToPlayer(2);
+    }
  
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,9 +15,22 @@ public class TimerBoard : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Update()
+    private void Start()
     {
-        timer -= Time.deltaTime;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartTimer();
+        }
+    }
+
+    public void StartTimer()
+    {
+        InvokeRepeating("ElapseSecond",1,1);
+    }
+
+    private void ElapseSecond()
+    {
+        timer -= 1;
 
         timerText.text = ((int)timer).ToString();
 
@@ -29,5 +43,10 @@ public class TimerBoard : MonoBehaviour
     public void ResetTimer()
     {
         timer = gameTime;
+    }
+
+    public void StopTimer()
+    {
+        CancelInvoke("ElapseSecond");
     }
 }

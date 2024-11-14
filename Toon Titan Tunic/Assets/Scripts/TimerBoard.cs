@@ -7,22 +7,26 @@ using UnityEngine;
 public class TimerBoard : MonoBehaviour
 {
     private float timer;
-    [SerializeField] private float gameTime = 20;
+    [SerializeField] private float _gameTime = 5;
+    public float GameTime() { return _gameTime; }
+    private PhotonView _pv;
     [SerializeField] private TextMeshProUGUI timerText;
 
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        _pv = GetComponent<PhotonView>();
     }
 
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
-            StartTimer();
+            _pv.RPC("StartTimer", RpcTarget.All);
         }
     }
 
+    [PunRPC]
     public void StartTimer()
     {
         InvokeRepeating("ElapseSecond",1,1);
@@ -42,7 +46,7 @@ public class TimerBoard : MonoBehaviour
 
     public void ResetTimer()
     {
-        timer = gameTime;
+        timer = _gameTime;
     }
 
     public void StopTimer()

@@ -9,14 +9,28 @@ public class MeteorSystem : MonoBehaviour
     private PhotonView _pv;
 
     [SerializeField] private Vector2 meteorZone;
+    TimerBoard _timerBoard;
 
     private void Awake()
     {
+        _timerBoard = FindObjectOfType<TimerBoard>();
         _pv = GetComponent<PhotonView>();
+        _pv.ViewID = 873;
     }
+
     private void Start()
     {
-        InvokeRepeating("SpawnMeteors", 20, 1);
+        //Empieza a contar cuando entran ambos jugadores
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            _pv.RPC("StartMeteors", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    private void StartMeteors()
+    {
+        InvokeRepeating("SpawnMeteors", _timerBoard.GameTime(), 1);
     }
 
     private void SpawnMeteors()

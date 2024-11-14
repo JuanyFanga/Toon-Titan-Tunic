@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 249272217115107831}
   - component: {fileID: 2293250068111129277}
   - component: {fileID: 5008912786896531578}
+  - component: {fileID: 7278807569708269057}
   m_Layer: 8
   m_Name: TimerCanvas
   m_TagString: TimerPanel
@@ -191,8 +192,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1e93b84902bd742969a62bba84a052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 20
   timerText: {fileID: 5601371184920074029}
+--- !u!114 &7278807569708269057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718059991190731114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8832629425143962567
 GameObject:
   m_ObjectHideFlags: 0

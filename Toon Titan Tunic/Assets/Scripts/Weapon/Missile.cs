@@ -14,6 +14,8 @@ public class Missile : MonoBehaviour, IMissile
     private Vector3 _velocity;
     private int _ownerID;
     public bool IsInHole;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _shootSFX;
 
     public void Initialize(int ID)
     {
@@ -23,6 +25,12 @@ public class Missile : MonoBehaviour, IMissile
     private void Awake()
     {
         _pv = GetComponent<PhotonView>();
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        _audioSource.PlayOneShot(_shootSFX);
     }
 
     private void FixedUpdate()

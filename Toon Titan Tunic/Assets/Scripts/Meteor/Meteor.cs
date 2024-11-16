@@ -33,7 +33,7 @@ public class Meteor : MonoBehaviour
         _rb.velocity = _dir;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         Explode();
         _audioSource.PlayOneShot(_explosionSFX);

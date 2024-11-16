@@ -13,10 +13,13 @@ public class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private bool _hasBullet = true;
     [SerializeField] private ParticleSystem _fireParticle;
     [SerializeField] private Camera _camera;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _reloadSFX;
     private PhotonView _pv;
     private void Awake()
     {
         _pv = GetComponent<PhotonView>();
+        _audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -62,6 +65,8 @@ public class Weapon : MonoBehaviour, IWeapon
     public void Reload()
     {
          _hasBullet = true;
+        _audioSource.PlayOneShot(_reloadSFX);
+
     }
 
     public bool HasBullet()

@@ -139,6 +139,7 @@ MonoBehaviour:
   bounceFactor: 0.08
   IsInHole: 0
   _shootSFX: {fileID: 8300000, guid: 1c9d6800e15db6c409f70c01fb362fa4, type: 3}
+  _bounceSFX: {fileID: 8300000, guid: a062e7f272165124db95550ee7e26829, type: 3}
 --- !u!54 &7290345742327307947
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

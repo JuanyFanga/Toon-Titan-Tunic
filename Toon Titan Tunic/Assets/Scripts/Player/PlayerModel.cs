@@ -15,11 +15,14 @@ public class PlayerModel : MonoBehaviour, IPlayer
     private float _dashTimer;
     private float _dashTime = 3f;
     private PhotonView _pv;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _revertDashSFX;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _pv = GetComponent<PhotonView>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -65,6 +68,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
         if (_spawnedHologram != null)
         {
             transform.position = _spawnedHologram.transform.position;
+            _audioSource.PlayOneShot(_revertDashSFX);
             PhotonNetwork.Destroy(_spawnedHologram);
         }
 

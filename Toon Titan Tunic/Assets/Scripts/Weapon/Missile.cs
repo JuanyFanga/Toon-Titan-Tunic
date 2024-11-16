@@ -16,6 +16,7 @@ public class Missile : MonoBehaviour, IMissile
     public bool IsInHole;
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _shootSFX;
+    [SerializeField] private AudioClip _bounceSFX;
 
     public void Initialize(int ID)
     {
@@ -74,8 +75,6 @@ public class Missile : MonoBehaviour, IMissile
     {
         if (_pv.IsMine)
         {
-
-
             if (_canExplode && !collision.collider.CompareTag("Player"))
             {
                 Vector3 normal = collision.contacts[0].normal;
@@ -122,6 +121,7 @@ public class Missile : MonoBehaviour, IMissile
     {
         _velocity = reflectedVelocity;
         transform.forward = _velocity.normalized;
+        _audioSource.PlayOneShot(_bounceSFX);
     }
 
     [PunRPC]

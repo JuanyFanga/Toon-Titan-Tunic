@@ -36,8 +36,6 @@ public class PickupableMissile : MonoBehaviour
                 hitPlayerWeapon.Reload();
                 PhotonNetwork.Destroy(gameObject);
             }
-      
         }
     }
 }
-

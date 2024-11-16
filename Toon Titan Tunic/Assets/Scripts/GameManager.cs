@@ -49,11 +49,21 @@ public class GameManager : MonoBehaviour
         {
             player2Points++;
         }
+        if (player1Points >= 5 || player2Points >= 5)
+        {
+            MatchEnd();
+            return;
+        }
 
         _player1PointsTexts.text = player1Points.ToString();
         _player2PointsTexts.text = player2Points.ToString();
         _pointPanel.SetActive(true);
         Invoke("CloseScoreBoard", 4.75f);
+    }
+
+    public void MatchEnd()
+    {
+
     }
 
     public void AddPointToPlayer(int playerID)

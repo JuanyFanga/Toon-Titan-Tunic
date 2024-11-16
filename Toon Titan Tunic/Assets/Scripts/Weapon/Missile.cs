@@ -35,17 +35,15 @@ public class Missile : MonoBehaviour, IMissile
 
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.Instance.spawnedMissiles.Add(this);
+            GameManager.Instance.OnLevelReseted();
         }
     }
 
-    private void OnDestroy()
+    public void OnLevelLoad()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            GameManager.Instance.spawnedMissiles.Remove(this);
-        }
+        PhotonNetwork.Destroy(this.gameObject);
     }
+
 
     private void FixedUpdate()
     {

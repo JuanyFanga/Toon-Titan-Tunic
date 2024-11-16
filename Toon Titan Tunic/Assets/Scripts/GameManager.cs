@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
+    public Action OnLevelReseted;
+
     public List<PlayerController> _playerControllers;
     [SerializeField] private PhotonView _pv;
     [SerializeField] private GameObject _pointPanel;
@@ -89,13 +92,18 @@ public class GameManager : MonoBehaviour
         _pointPanel.SetActive(false);
     }
 
-    public void DestroyAllMissiles()
+ 
+    public void ResetLevel()
     {
-        foreach (var missile in spawnedMissiles)
+        OnLevelReseted?.Invoke();
+        _pv.RPC("CloseScoreBoardsRPC", RpcTarget.All);
+
+        var controllers = _playerControllers;
+        foreach (var controller in controllers)
         {
-            PhotonNetwork.Destroy(missile.gameObject);
+            controller.Reset();
         }
-        spawnedMissiles.Clear();
+
     }
 
     public void ResetTimer()

@@ -26,6 +26,7 @@ public class TimerBoard : MonoBehaviour
     [PunRPC]
     public void StartTimer()
     {
+        ResetTimer();
         InvokeRepeating("ElapseSecond",1,1);
     }
 

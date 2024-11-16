@@ -17,15 +17,7 @@ public class LevelReseter : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.Instance.CloseScoreBoards();
-
-            var controllers = GameManager.Instance._playerControllers;
-            foreach (var controller in controllers)
-            {
-                controller.Reset();
-            }
-
-            GameManager.Instance.DestroyAllMissiles();
+            GameManager.Instance.ResetLevel();
         }
         else
         {

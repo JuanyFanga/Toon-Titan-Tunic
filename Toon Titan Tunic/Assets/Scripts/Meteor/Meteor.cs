@@ -38,6 +38,7 @@ public class Meteor : MonoBehaviour
         Explode();
         _audioSource.PlayOneShot(_explosionSFX);
         _explosionVFX.Play();
+        _rb.velocity = Vector3.zero;
         Invoke("DeactivateObject", 0.5f);
     }
 

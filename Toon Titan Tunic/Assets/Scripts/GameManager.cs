@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
 
     public List<PlayerController> _playerControllers;
     [SerializeField] private PhotonView _pv;
-    [SerializeField] private GameObject _pointPanel;
-    [SerializeField] private TextMeshProUGUI _player1PointsTexts;
-    [SerializeField] private TextMeshProUGUI _player2PointsTexts;
     [SerializeField] private TimerBoard _board;
     public List<Missile> spawnedMissiles;
     public static GameManager Instance;
@@ -22,6 +19,15 @@ public class GameManager : MonoBehaviour
 
     private int player1Points = 0;
     private int player2Points = 0;
+
+    [Header("Points Panel")]
+    [SerializeField] private GameObject _pointPanel;
+    [SerializeField] private TextMeshProUGUI _player1PointsTexts;
+    [SerializeField] private TextMeshProUGUI _player2PointsTexts;
+
+    [Header("Match End Panel")]
+    [SerializeField] private GameObject _matchEndPanel;
+    [SerializeField] private TextMeshProUGUI _playerWin;
 
     private void Awake()
     {
@@ -67,7 +73,8 @@ public class GameManager : MonoBehaviour
 
     public void MatchEnd()
     {
-
+        _pointPanel.SetActive(false);
+        _matchEndPanel.SetActive(true);
     }
 
     public void AddPointToPlayer(int playerID)

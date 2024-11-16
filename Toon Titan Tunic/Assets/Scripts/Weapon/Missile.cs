@@ -32,6 +32,19 @@ public class Missile : MonoBehaviour, IMissile
     private void Start()
     {
         _audioSource.PlayOneShot(_shootSFX);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.spawnedMissiles.Add(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.spawnedMissiles.Remove(this);
+        }
     }
 
     private void FixedUpdate()

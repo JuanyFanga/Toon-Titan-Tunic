@@ -507,6 +507,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b62a0a5f79ac144967dd19d18f3b42, type: 3}
+--- !u!114 &1122391923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5008912786896531578, guid: c0b62a0a5f79ac144967dd19d18f3b42, type: 3}
+  m_PrefabInstance: {fileID: 1122391922}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1e93b84902bd742969a62bba84a052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1199768103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -893,6 +904,8 @@ MonoBehaviour:
   _pointPanel: {fileID: 1199768104}
   _player1PointsTexts: {fileID: 1199768106}
   _player2PointsTexts: {fileID: 1199768105}
+  _board: {fileID: 1122391923}
+  spawnedMissiles: []
   _levelsManager: {fileID: 0}
 --- !u!4 &1814615472
 Transform:

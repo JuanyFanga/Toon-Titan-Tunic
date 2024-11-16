@@ -35,6 +35,8 @@ public class PlayerReset : MonoBehaviour
         _timerPanel.GetComponent<TimerBoard>().ResetTimer();
     }
 
+    
+
     [PunRPC]
     private void ChangeColor(int playerViewID, int playerIndex)
     {

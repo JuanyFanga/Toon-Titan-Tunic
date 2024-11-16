@@ -91,7 +91,6 @@ public class PlayerController : MonoBehaviour
         LevelReseter reseter = FindAnyObjectByType<LevelReseter>();
         transform.SetPositionAndRotation(reseter._resetLocations[ID-1].position, reseter._resetLocations[ID-1].rotation);
         transform.GetChild(0).gameObject.SetActive(true);
-        GetComponent<IPlayer>().PickupBullet();
-
+        GetComponent<IWeapon>().Reload();
     }
 }

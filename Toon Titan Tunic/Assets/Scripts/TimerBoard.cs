@@ -18,12 +18,9 @@ public class TimerBoard : MonoBehaviour
         _pv = GetComponent<PhotonView>();
     }
 
-    private void Start()
+    public void StartTimerCallRPC()
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            _pv.RPC("StartTimer", RpcTarget.All);
-        }
+        _pv.RPC("StartTimer", RpcTarget.All);
     }
 
     [PunRPC]

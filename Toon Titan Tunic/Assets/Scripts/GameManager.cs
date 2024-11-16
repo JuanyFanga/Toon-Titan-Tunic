@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _pointPanel;
     [SerializeField] private TextMeshProUGUI _player1PointsTexts;
     [SerializeField] private TextMeshProUGUI _player2PointsTexts;
-
+    [SerializeField] private TimerBoard _board;
+    public List<Missile> spawnedMissiles;
     public static GameManager Instance;
 
     public LevelsManager _levelsManager;
@@ -72,9 +73,40 @@ public class GameManager : MonoBehaviour
         Invoke("NextRound", 5);
     }
 
+    public void CloseScoreBoards()
+    {
+        _pv.RPC("CloseScoreBoardsRPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void CloseScoreBoardsRPC()
+    {
+        _pointPanel.SetActive(false);
+    }
+
     public void CloseScoreBoard(int playerID)
     {
         _pointPanel.SetActive(false);
+    }
+
+    public void DestroyAllMissiles()
+    {
+        foreach (var missile in spawnedMissiles)
+        {
+            PhotonNetwork.Destroy(missile.gameObject);
+        }
+        spawnedMissiles.Clear();
+    }
+
+    public void ResetTimer()
+    {
+        _pv.RPC("ResetTimerRPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void ResetTimerRPC()
+    {
+        _board.StartTimerCallRPC();
     }
 
     public void AddPlayerController(PlayerController playerToAdd)

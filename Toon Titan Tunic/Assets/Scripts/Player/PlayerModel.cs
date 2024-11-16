@@ -112,18 +112,11 @@ public class PlayerModel : MonoBehaviour, IPlayer
 
             if (PhotonNetwork.IsMasterClient)
             {
-                GameManager.Instance.AddPointToPlayer(GetComponent<PlayerController>().ID);
+                GameManager.Instance.AddPointToPlayer(1);
             }
             else
             {
-                PlayerController[] controllers = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
-                foreach (PlayerController controller in controllers) 
-                {
-                    if (controller.ID == 1)
-                    {
-                        controller.SendDeathToManager();
-                    } 
-                }
+                _pv.RPC("SendPoints", RpcTarget.MasterClient);
             }
         }
     }
@@ -132,5 +125,21 @@ public class PlayerModel : MonoBehaviour, IPlayer
     void OnDeath()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    private void SendPoints()
+    {
+        GameManager.Instance.AddPointToPlayer(2);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print($"Choque con: {other.gameObject.name}");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print($"Choque con: {collision.collider.gameObject}");
     }
 }

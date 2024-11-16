@@ -27,28 +27,35 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _camera.gameObject.SetActive(_pv.IsMine);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.AddPlayerController(this);
+        }
     }
 
     void Update()
     {
         if (_pv.IsMine)
         {
-            var h = Input.GetAxis("Horizontal");
-            var v = Input.GetAxis("Vertical");
-
-            _direction = new Vector3(h, 0, v);
-
-            if (h == 0 && v == 0)
-                _player.Move(Vector3.zero);
-
-            else
+            if (transform.GetChild(0).gameObject.activeInHierarchy)
             {
-                _player.Look(_direction);
-            }
+                var h = Input.GetAxis("Horizontal");
+                var v = Input.GetAxis("Vertical");
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                _player.Dash();
+                _direction = new Vector3(h, 0, v);
+
+                if (h == 0 && v == 0)
+                    _player.Move(Vector3.zero);
+
+                else
+                {
+                    _player.Look(_direction);
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    _player.Dash();
+                }
             }
         }
     }
@@ -73,5 +80,18 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.Instance.AddPointToPlayer(2);
     }
- 
+
+    public void Reset()
+    {
+        _pv.RPC("RPCReset", RpcTarget.All);
+    }
+    [PunRPC]
+    public void RPCReset()
+    {
+        LevelReseter reseter = FindAnyObjectByType<LevelReseter>();
+        transform.SetPositionAndRotation(reseter._resetLocations[ID-1].position, reseter._resetLocations[ID-1].rotation);
+        transform.GetChild(0).gameObject.SetActive(true);
+        GetComponent<IPlayer>().PickupBullet();
+
+    }
 }

@@ -2,14 +2,14 @@ using UnityEngine;
 using Photon.Pun;
 
 
-public class PlayerSpawn : MonoBehaviour
+public class PlayerReset : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     //hacer una lista con varias posiciones y poder elegir entre esas posiciones
 
     [SerializeField] private Material redMaterial;
     [SerializeField] private Material blueMaterial;
-
+    [SerializeField] private Transform[] playerSpawnpoint;
     private GameObject _timerPanel;
 
     GameObject player;

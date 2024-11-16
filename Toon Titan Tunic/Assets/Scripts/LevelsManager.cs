@@ -1,13 +1,13 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelsManager : MonoBehaviour
 {
-    private int lastSceneLoaded=-1;
+    [SerializeField] private GameObject[] levelPrefabs;
+    private int lastSceneLoaded = -1;
     private PhotonView _pv;
+    private GameObject currentLevel = null;
+    private int lastLoadedLevel = -1;
     private void Awake()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -18,36 +18,43 @@ public class LevelsManager : MonoBehaviour
     }
     private void Start()
     {
-
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.Instance._levelsManager = this;
-            _pv.RPC("LoadSceneAdditive", RpcTarget.AllBuffered, 3);
+            if (GameManager.Instance._levelsManager is null)
+            {
+                GameManager.Instance._levelsManager = this;
+            }
+
+            LoadNextLevel();
         }
     }
 
-    public void NextRound()
+    public void LoadNextLevel()
     {
-   
-        int tempSceneToLoad;
-        do
+        if (currentLevel is null)
         {
-            tempSceneToLoad = Random.Range(3,8);
+            LoadLevel(0);
         }
-        while (tempSceneToLoad == lastSceneLoaded);
+        else
+        {
+            print($"Destruyo el anterior");
+            PhotonNetwork.Destroy(currentLevel);
 
-        //LoadSceneAdditive(tempSceneToLoad);
-         _pv.RPC("LoadSceneAdditive", RpcTarget.All, tempSceneToLoad);
+            int levelToLoad = 0;
+            do
+            {
+                levelToLoad = Random.Range(0, levelPrefabs.Length);
+            }
+            while (levelToLoad == lastLoadedLevel);
+            print($"Level to load {levelToLoad}");
+            LoadLevel(levelToLoad);
+        }
     }
 
-    [PunRPC]
-    private void LoadSceneAdditive(int sceneToLoad)
+    private void LoadLevel(int levelIndex)
     {
-        if (lastSceneLoaded!=-1)
-        {
-            SceneManager.UnloadSceneAsync(lastSceneLoaded);
-        }
-        PhotonNetwork.LoadAdditiveLevel(sceneToLoad);
-        lastSceneLoaded = sceneToLoad;
+        print("Loaded level: " + levelIndex);
+        currentLevel = PhotonNetwork.Instantiate(levelPrefabs[levelIndex].name, Vector3.zero, Quaternion.identity);
+        lastLoadedLevel = levelIndex;
     }
 }

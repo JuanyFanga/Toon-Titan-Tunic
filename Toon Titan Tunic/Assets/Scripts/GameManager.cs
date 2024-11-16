@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private List<PlayerController> _player;
+    public List<PlayerController> _playerControllers;
     [SerializeField] private PhotonView _pv;
     [SerializeField] private GameObject _pointPanel;
     [SerializeField] private TextMeshProUGUI _player1PointsTexts;
@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private int player1Points = 0;
     private int player2Points = 0;
 
-    private int playersReseted;
     private void Awake()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void AddPoint(int playerID)
     {
-        if (playerID == 0)
+        if (playerID == 1)
         {
             player1Points++;
         }
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
         _player1PointsTexts.text = player1Points.ToString();
         _player2PointsTexts.text = player2Points.ToString();
         _pointPanel.SetActive(true);
-        print("Point added on RPC");
+        Invoke("CloseScoreBoard", 4.75f);
     }
 
     public void AddPointToPlayer(int playerID)
@@ -63,20 +62,17 @@ public class GameManager : MonoBehaviour
         Invoke("NextRound", 5);
     }
 
+    public void CloseScoreBoard(int playerID)
+    {
+        _pointPanel.SetActive(false);
+    }
+
+    public void AddPlayerController(PlayerController playerToAdd)
+    { 
+        _playerControllers.Add(playerToAdd);    
+    }
     public void NextRound()
     {
-        playersReseted = 0;
-        _levelsManager.NextRound();
-    }
-
-    public bool ArePlayersAlreadySpawned()
-    {
-        return _player.Count > 1;
-    }
-
-    public void ResetPlayer(Vector3 location)
-    {
-        _player[playersReseted].transform.position = location;
-        playersReseted++;
+        _levelsManager.LoadNextLevel();
     }
 }

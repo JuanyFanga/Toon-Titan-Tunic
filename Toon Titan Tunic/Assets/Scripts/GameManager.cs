@@ -4,10 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using System;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public Action OnLevelReseted;
+    public UnityEvent OnLevelReseted;
 
     public List<PlayerController> _playerControllers;
     [SerializeField] private PhotonView _pv;
@@ -95,7 +96,6 @@ public class GameManager : MonoBehaviour
  
     public void ResetLevel()
     {
-        OnLevelReseted?.Invoke();
         _pv.RPC("CloseScoreBoardsRPC", RpcTarget.All);
 
         var controllers = _playerControllers;
@@ -104,11 +104,17 @@ public class GameManager : MonoBehaviour
             controller.Reset();
         }
 
+
+        if (OnLevelReseted != null)
+        {
+            OnLevelReseted?.Invoke();
+            OnLevelReseted.RemoveAllListeners();
+        }
     }
 
     public void ResetTimer()
     {
-        _pv.RPC("ResetTimerRPC", RpcTarget.All);
+        _board.StartTimerCallRPC();
     }
 
     [PunRPC]

@@ -45,6 +45,7 @@ public class TimerBoard : MonoBehaviour
     public void ResetTimer()
     {
         timer = _gameTime;
+        StopTimer();
     }
 
     public void StopTimer()

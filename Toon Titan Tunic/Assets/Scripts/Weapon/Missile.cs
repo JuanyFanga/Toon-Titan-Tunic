@@ -35,7 +35,7 @@ public class Missile : MonoBehaviour, IMissile
 
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.Instance.OnLevelReseted();
+            GameManager.Instance.OnLevelReseted.AddListener(OnLevelLoad);
         }
     }
 

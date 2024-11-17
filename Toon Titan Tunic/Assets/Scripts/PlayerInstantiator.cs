@@ -24,9 +24,13 @@ public class PlayerReset : MonoBehaviour
 
     private void Start()
     {
-        player = PhotonNetwork.Instantiate(playerPrefab.name,
-        new Vector3(Random.Range(-2, 2), 0.25f, Random.Range(-2, 2)),
-        Quaternion.identity);
+        Transform currentTransform = playerSpawnpoint[PhotonNetwork.IsMasterClient ? 0 : 1];
+
+        player = PhotonNetwork.Instantiate
+            (playerPrefab.name,
+            currentTransform.position,
+            currentTransform.rotation
+            );
 
         int playerIndex = PhotonNetwork.PlayerList.Length;
         _pv.RPC("ChangeColor", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID, playerIndex);

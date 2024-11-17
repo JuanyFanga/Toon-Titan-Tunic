@@ -35,13 +35,18 @@ public class Missile : MonoBehaviour, IMissile
 
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.Instance.OnLevelReseted.AddListener(OnLevelLoad);
+            GameManager.Instance.OnLevelReseted.AddListener(HideBulletCallRPC);
         }
     }
 
-    public void OnLevelLoad()
+    public void HideBulletCallRPC()
     {
-        PhotonNetwork.Destroy(this.gameObject);
+        _pv.RPC("HideBullet", RpcTarget.All);
+    }
+    [PunRPC]
+    private void HideBullet()
+    {
+        gameObject.SetActive(false);
     }
 
 
@@ -75,7 +80,8 @@ public class Missile : MonoBehaviour, IMissile
             }
             else
             {
-                PhotonNetwork.Instantiate(_pickupableMissile.name, transform.position, Quaternion.identity);
+                var pickupable = PhotonNetwork.Instantiate(_pickupableMissile.name, transform.position, Quaternion.identity);
+                pickupable.GetComponent<PhotonView>().RequestOwnership();
                 PhotonNetwork.Destroy(gameObject);
             }
         }

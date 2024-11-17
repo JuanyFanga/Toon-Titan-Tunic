@@ -899,6 +899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949596c4411503a4cb11af13188b219d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnLevelReseted:
+    m_PersistentCalls:
+      m_Calls: []
   _playerControllers: []
   _pv: {fileID: 0}
   _board: {fileID: 1122391923}
@@ -908,6 +911,8 @@ MonoBehaviour:
   _player1PointsTexts: {fileID: 1199768106}
   _player2PointsTexts: {fileID: 1199768105}
   _matchEndPanel: {fileID: 1398526861329142427}
+  _matchEndplayer1PointsTexts: {fileID: 0}
+  _matchEndplayer2PointsTexts: {fileID: 0}
   _playerWin: {fileID: 1398526861329142428}
 --- !u!4 &1814615472
 Transform:
@@ -942,7 +947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5655657372057593949, guid: 7102da1216516114ca53c3941c7944d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8031810643300007695, guid: 7102da1216516114ca53c3941c7944d4, type: 3}
       propertyPath: m_Pivot.x

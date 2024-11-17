@@ -60,6 +60,8 @@ MonoBehaviour:
   - ResetTimerRPC
   - ResetTimerAsMasterClient
   - OnReload
+  - DestroyObjectWithID
+  - HideBullet
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

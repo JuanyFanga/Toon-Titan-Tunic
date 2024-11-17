@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour
                     _player.Dash();
                 }
             }
+            else
+            {
+                _player.Move(Vector3.zero);
+            }
         }
     }
 

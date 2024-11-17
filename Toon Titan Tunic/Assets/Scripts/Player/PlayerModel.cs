@@ -137,13 +137,5 @@ public class PlayerModel : MonoBehaviour, IPlayer
         GameManager.Instance.AddPointToPlayer(2);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        print($"Choque con: {other.gameObject.name}");
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        print($"Choque con: {collision.collider.gameObject}");
-    }
 }

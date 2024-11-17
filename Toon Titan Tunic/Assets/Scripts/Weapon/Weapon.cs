@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour, IWeapon
             _shootPoint.position,
             PlayerAim()
         );
-
+        projectile.GetComponent<PhotonView>().RequestOwnership(); 
         projectile.GetComponent<IMissile>().Initialize(GetComponent<PlayerController>().ID);
 
         Instantiate(_fireParticle, _shootPoint.position, _shootPoint.rotation, _shootPoint);

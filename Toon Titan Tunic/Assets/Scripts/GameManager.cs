@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Match End Panel")]
     [SerializeField] private GameObject _matchEndPanel;
+    [SerializeField] private TextMeshProUGUI _matchEndplayer1PointsTexts;
+    [SerializeField] private TextMeshProUGUI _matchEndplayer2PointsTexts;
     [SerializeField] private TextMeshProUGUI _playerWin;
 
     private void Awake()
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour
 
         _player1PointsTexts.text = player1Points.ToString();
         _player2PointsTexts.text = player2Points.ToString();
+        _matchEndplayer1PointsTexts.text = player1Points.ToString();
+        _matchEndplayer2PointsTexts.text = player2Points.ToString();
         _pointPanel.SetActive(true);
         Invoke("CloseScoreBoard", 4.75f);
     }

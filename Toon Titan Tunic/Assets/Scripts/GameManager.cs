@@ -54,11 +54,6 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void AddPoint(int playerID)
     {
-        _player1PointsTexts.text = player1Points.ToString();
-        _player2PointsTexts.text = player2Points.ToString();
-        _matchEndplayer1PointsTexts.text = player1Points.ToString();
-        _matchEndplayer2PointsTexts.text = player2Points.ToString();
-
         if (playerID == 1)
         {
             player1Points++;
@@ -67,18 +62,26 @@ public class GameManager : MonoBehaviour
         {
             player2Points++;
         }
+
+        _player1PointsTexts.text = player1Points.ToString();
+        _player2PointsTexts.text = player2Points.ToString();
+        _matchEndplayer1PointsTexts.text = player1Points.ToString();
+        _matchEndplayer2PointsTexts.text = player2Points.ToString();
+
         if (player1Points >= 5 || player2Points >= 5)
         {
-            MatchEnd();
+            MatchEnd(player2Points >= 5 ? 2 : 1);
             return;
         }
+
         _pointPanel.SetActive(true);
         Invoke("CloseScoreBoard", 4.75f);
     }
 
-    public void MatchEnd()
+    public void MatchEnd(int winnerPlayer)
     {
         _pointPanel.SetActive(false);
+        _playerWin.text = $"Player {winnerPlayer} won";
         _matchEndPanel.SetActive(true);
     }
 

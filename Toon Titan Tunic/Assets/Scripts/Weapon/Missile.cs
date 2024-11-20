@@ -107,14 +107,7 @@ public class Missile : MonoBehaviour, IMissile
     private void OnTriggerEnter(Collider other)
     {
         if (_pv.IsMine)
-        {
-
-            //if (other.CompareTag("Player"))
-            //{
-            //    print("owoner id " + _ownerID);
-            //    print("other id " + other.GetComponent<PlayerController>().ID);
-            //}
-
+        { 
 
             if (_canExplode && other.CompareTag("Player"))
             {
@@ -138,7 +131,13 @@ public class Missile : MonoBehaviour, IMissile
     {
         _velocity = reflectedVelocity;
         transform.forward = _velocity.normalized;
+        _pv.RPC("BounceSound", RpcTarget.All);
+    }
+    [PunRPC]
+    private void BounceSound()
+    {
         _audioSource.PlayOneShot(_bounceSFX);
+
     }
 
     [PunRPC]

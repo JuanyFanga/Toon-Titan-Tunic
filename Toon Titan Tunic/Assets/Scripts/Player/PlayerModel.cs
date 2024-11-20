@@ -68,7 +68,7 @@ public class PlayerModel : MonoBehaviour, IPlayer
         if (_spawnedHologram != null)
         {
             transform.position = _spawnedHologram.transform.position;
-            _audioSource.PlayOneShot(_revertDashSFX);
+            _pv.RPC("TeleportSound", RpcTarget.All);
             PhotonNetwork.Destroy(_spawnedHologram);
         }
 
@@ -135,6 +135,13 @@ public class PlayerModel : MonoBehaviour, IPlayer
     private void SendPoints()
     {
         GameManager.Instance.AddPointToPlayer(2);
+    }
+
+    [PunRPC]
+    private void TeleportSound()
+    {
+            _audioSource.PlayOneShot(_revertDashSFX);
+
     }
 
 

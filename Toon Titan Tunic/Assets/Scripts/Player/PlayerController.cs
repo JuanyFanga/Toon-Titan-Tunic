@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 _player.Move(Vector3.zero);
+                _direction = Vector3.zero;
             }
         }
     }
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         LevelReseter reseter = FindAnyObjectByType<LevelReseter>();
         transform.SetPositionAndRotation(reseter._resetLocations[ID-1].position, reseter._resetLocations[ID-1].rotation);
+        transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).gameObject.SetActive(true);
         GetComponent<IWeapon>().Reload();
     }

@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using System;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -83,6 +84,12 @@ public class GameManager : MonoBehaviour
         _pointPanel.SetActive(false);
         _playerWin.text = $"Player {winnerPlayer} won";
         _matchEndPanel.SetActive(true);
+        Invoke("ReturnToMainMenu", 3f);
+    }
+
+    private void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void AddPointToPlayer(int playerID)

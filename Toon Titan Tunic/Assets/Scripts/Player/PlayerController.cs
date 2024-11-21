@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         _pv.RPC("RPCReset", RpcTarget.All);
     }
+
     [PunRPC]
     public void RPCReset()
     {
